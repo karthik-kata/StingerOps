@@ -16,8 +16,8 @@ html, body {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  width: 350px;
-  max-height: 500px;
+  width: 500px;
+  height: 600px;
   background: white;
   border-radius: 16px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
@@ -241,6 +241,8 @@ html, body {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  min-height: 500px;
+  height: 100%;
 }
 
 .cedar-copilot-container > * {

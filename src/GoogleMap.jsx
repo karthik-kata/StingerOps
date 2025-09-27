@@ -222,6 +222,7 @@ const GoogleMap = ({ csvData, classesData, stopsData, busCount, apiKey }) => {
                     setOpenInfoWindow(null)
                   }
                 })
+
         
         setMap(googleMap)
         setIsLoaded(true)
@@ -231,6 +232,24 @@ const GoogleMap = ({ csvData, classesData, stopsData, busCount, apiKey }) => {
       setError(`Failed to load Google Maps: ${err.message}`)
     })
   }, [apiKey, userLocation])
+
+  // Add custom event listener for close button
+  useEffect(() => {
+    const handleCloseInfoWindow = (event) => {
+      console.log('🔴 Close button clicked, event detail:', event.detail)
+      if (openInfoWindow) {
+        openInfoWindow.close()
+        setOpenInfoWindow(null)
+      }
+    }
+    
+    window.addEventListener('closeInfoWindow', handleCloseInfoWindow)
+    
+    return () => {
+      window.removeEventListener('closeInfoWindow', handleCloseInfoWindow)
+    }
+  }, [openInfoWindow])
+
 
   useEffect(() => {
     if (map && csvData) {
@@ -255,7 +274,12 @@ const GoogleMap = ({ csvData, classesData, stopsData, busCount, apiKey }) => {
       const infoWindow = new window.google.maps.InfoWindow({
         content: `
           <div style="padding: 10px; max-width: 300px; position: relative;">
-            <button onclick="this.closest('.gm-style-iw').parentElement.click()" style="position: absolute; top: 5px; right: 5px; background: #ff4444; color: white; border: none; border-radius: 50%; width: 20px; height: 20px; cursor: pointer; font-size: 12px; display: flex; align-items: center; justify-content: center;">×</button>
+            <div style="position: absolute; top: 0px; right: 0px; z-index: 1000; pointer-events: auto; width: 30px; height: 30px; background: #ff4444; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.3);" onclick="
+              // Close this specific info window by dispatching a custom event with the marker index
+              window.dispatchEvent(new CustomEvent('closeInfoWindow', { detail: { markerIndex: ${index} } }));
+            ">
+              <span style="color: white; font-size: 16px; font-weight: bold; user-select: none; pointer-events: none;">×</span>
+            </div>
             <h3 style="margin: 0 0 10px 0; color: #333; padding-right: 25px;">Data Point ${index + 1}</h3>
             <div style="font-size: 12px; color: #666;">
               ${Object.entries(coord.data).map(([key, value]) => 
@@ -369,7 +393,12 @@ const GoogleMap = ({ csvData, classesData, stopsData, busCount, apiKey }) => {
       const infoWindow = new window.google.maps.InfoWindow({
         content: `
           <div style="padding: 12px; max-width: 350px; position: relative;">
-            <button onclick="this.closest('.gm-style-iw').parentElement.click()" style="position: absolute; top: 8px; right: 8px; background: #ff4444; color: white; border: none; border-radius: 50%; width: 22px; height: 22px; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; font-weight: bold;">×</button>
+            <div style="position: absolute; top: 0px; right: 0px; z-index: 1000; pointer-events: auto; width: 30px; height: 30px; background: #ff4444; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.3);" onclick="
+              // Close this specific info window by dispatching a custom event with the stop index
+              window.dispatchEvent(new CustomEvent('closeInfoWindow', { detail: { stopIndex: ${index} } }));
+            ">
+              <span style="color: white; font-size: 16px; font-weight: bold; user-select: none; pointer-events: none;">×</span>
+            </div>
             <h3 style="margin: 0 0 10px 0; color: #FF6B35; font-size: 16px; font-weight: bold; padding-right: 30px;">${stop.stop_name}</h3>
             <div style="margin: 0 0 8px 0;">
               <p style="margin: 0 0 5px 0; color: #333; font-size: 12px; font-weight: bold;">Routes:</p>

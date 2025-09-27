@@ -14,6 +14,7 @@
     "@googlemaps/js-api-loader": "^1.16.10",
     "@radix-ui/react-slot": "^1.2.3",
     "@tailwindcss/postcss": "^4.1.13",
+    "axios": "^1.12.2",
     "cedar-os": "^0.1.23",
     "cedar-os-components": "^0.0.15",
     "class-variance-authority": "^0.7.1",
@@ -22,8 +23,8 @@
     "motion": "^12.23.22",
     "motion-plus-react": "^1.5.4",
     "papaparse": "^5.5.3",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-markdown": "^10.1.0",
     "uuid": "^13.0.0"
   },

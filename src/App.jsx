@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect } from 'react'
 import Papa from 'papaparse'
 import GoogleMap from './GoogleMap'
 import CedarGuide from './CedarGuide'
+import CedarTest from './CedarTest'
 import api from './api'
 import './App.css'
 
@@ -172,7 +173,10 @@ function App() {
       {/* Cedar OS AI Guide Button */}
       <button 
         className="seeder-button"
-        onClick={() => setShowSeeder(true)}
+        onClick={() => {
+          console.log('🤖 AI Guide button clicked, setting showSeeder to true')
+          setShowSeeder(true)
+        }}
         title="Get AI-powered guidance"
       >
         🤖 AI Guide
@@ -397,11 +401,20 @@ function App() {
                 </div>
               )}
 
-      {/* Cedar Guide Component */}
-      <CedarGuide 
-        isOpen={showSeeder} 
-        onClose={() => setShowSeeder(false)} 
-      />
+
+              {/* Cedar Guide Component */}
+              {console.log('🌲 App render - showSeeder:', showSeeder)}
+              <CedarGuide 
+                isOpen={showSeeder} 
+                onClose={() => {
+                  console.log('🌲 CedarGuide onClose called, setting showSeeder to false')
+                  setShowSeeder(false)
+                }}
+                busCount={busCount}
+                csvData={csvData}
+                classesData={classesData}
+                stopsData={stopsData}
+              />
       </div>
   )
 }
