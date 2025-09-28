@@ -1,4 +1,4 @@
-# TBD - HackGT Project
+# StingerOps - HackGT Project
 
 ## React + Vite
 
