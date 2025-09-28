@@ -455,7 +455,56 @@ html, body {
   z-index: 1;
 }
 
-/* Floating Upload Button */
+/* Floating Action Buttons */
+.floating-buttons {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 10000;
+}
+
+.floating-button {
+  padding: 12px 20px;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 160px;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.floating-button.upload-button {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.floating-button.upload-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.floating-button.optimize-button {
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+  color: white;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+}
+
+.floating-button.optimize-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+}
+
+/* Legacy floating upload button for compatibility */
 .floating-upload-button {
   position: fixed;
   top: 80px;
@@ -1070,6 +1119,38 @@ html, body {
   background: rgba(76, 175, 80, 1);
 }
 
+/* Optimized Routes Toggle Button */
+.optimized-routes-toggle-button {
+  background: rgba(255, 193, 7, 0.9);
+  color: white;
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(255, 193, 7, 0.3);
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 140px;
+  justify-content: center;
+}
+
+.optimized-routes-toggle-button:hover {
+  background: rgba(255, 193, 7, 1);
+  transform: translateY(-1px);
+}
+
+.optimized-routes-toggle-button.active {
+  background: rgba(245, 124, 0, 0.9);
+  border-color: rgba(245, 124, 0, 0.3);
+}
+
+.optimized-routes-toggle-button.active:hover {
+  background: rgba(245, 124, 0, 1);
+}
+
 .location-info {
   color: #4CAF50;
   font-size: 0.9rem;
@@ -1131,24 +1212,94 @@ html, body {
 }
 
 .map-error {
-  background: #fee;
-  border: 2px solid #fcc;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid #ff9800;
   border-radius: 15px;
   padding: 2rem;
   text-align: center;
-  color: #c33;
-  margin: 2rem 0;
+  color: #333;
+  max-width: 600px;
+  width: 90%;
+  z-index: 1000;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.map-error .error-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .map-error h3 {
-  margin: 0 0 1rem 0;
-  color: #c33;
+  margin: 0;
+  color: #ff9800;
   font-size: 1.5rem;
+  font-weight: 600;
 }
 
 .map-error p {
-  margin: 0.5rem 0;
+  margin: 0;
   font-size: 1rem;
+  color: #666;
+}
+
+.api-key-help {
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 1.5rem;
+  border-left: 4px solid #ff9800;
+  text-align: left;
+  margin-top: 1rem;
+}
+
+.api-key-help p {
+  margin: 0 0 1rem 0;
+  font-weight: 600;
+  color: #333;
+  text-align: left;
+}
+
+.api-key-help ol {
+  margin: 0;
+  padding-left: 1.5rem;
+  color: #666;
+  text-align: left;
+}
+
+.api-key-help li {
+  margin-bottom: 0.5rem;
+}
+
+.api-key-help code {
+  background: #e9ecef;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: 'Monaco', 'Menlo', monospace;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.fallback-info {
+  background: #e8f5e8;
+  border-radius: 10px;
+  padding: 1.5rem;
+  border-left: 4px solid #4caf50;
+  text-align: left;
+  margin: 1rem 0;
+}
+
+.fallback-info p {
+  margin: 0.5rem 0;
+  color: #2e7d32;
+  text-align: left;
+}
+
+.fallback-info strong {
+  color: #1b5e20;
 }
 
 /* Responsive adjustments for map */
@@ -1194,6 +1345,32 @@ html, body {
 }
 
 .upload-modal-content {
+  background: white;
+  border-radius: 20px;
+  max-width: 800px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+/* Optimization Modal */
+.optimization-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 2rem;
+}
+
+.optimization-modal-content {
   background: white;
   border-radius: 20px;
   max-width: 800px;

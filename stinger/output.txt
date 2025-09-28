@@ -1,0 +1,16 @@
+Selected Lines (full coverage, weighted):
+- L_Publix at the Plaza_0 | stops=5 | cycle=9.8 min | path: West Village Dorms (West Campus)  -> John Lewis Student Center -> North Avenue Dorms (East Campus)     -> MARTA Midtown Station -> Publix at the Plaza
+- L_Center St. Apartments & Hemphill Ave_0 | stops=5 | cycle=9.8 min | path: West Village Dorms (West Campus)  -> John Lewis Student Center -> North Avenue Dorms (East Campus)     -> MARTA Midtown Station -> Center St. Apartments & Hemphill Ave
+- L_8th St & Hemphill Ave _2 | stops=5 | cycle=9.8 min | path: West Village Dorms (West Campus)  -> John Lewis Student Center -> North Avenue Dorms (East Campus)     -> MARTA Midtown Station -> 8th St & Hemphill Ave 
+- L_Academy of Medicine_0 | stops=5 | cycle=9.8 min | path: North Avenue Dorms (East Campus)     -> John Lewis Student Center -> West Village Dorms (West Campus)  -> MARTA Midtown Station -> Academy of Medicine
+- L_Krone Engineered Biosystems Building on State St._1 | stops=5 | cycle=9.8 min | path: West Village Dorms (West Campus)  -> John Lewis Student Center -> North Avenue Dorms (East Campus)     -> MARTA Midtown Station -> Krone Engineered Biosystems Building on State St.
+- L_Baker Building_0 | stops=5 | cycle=9.8 min | path: West Village Dorms (West Campus)  -> John Lewis Student Center -> North Avenue Dorms (East Campus)     -> MARTA Midtown Station -> Baker Building
+- L_Couch Park_2 | stops=5 | cycle=9.8 min | path: John Lewis Student Center -> North Avenue Dorms (East Campus)     -> MARTA Midtown Station -> West Village Dorms (West Campus)  -> Couch Park
+- L_West Village_0 | stops=5 | cycle=9.8 min | path: MARTA Midtown Station -> North Avenue Dorms (East Campus)     -> John Lewis Student Center -> West Village Dorms (West Campus)  -> West Village
+- L_Fitten Hall_0 | stops=5 | cycle=9.8 min | path: John Lewis Student Center -> North Avenue Dorms (East Campus)     -> MARTA Midtown Station -> West Village Dorms (West Campus)  -> Fitten Hall
+- L_McCamish & 10th St._2 | stops=5 | cycle=9.8 min | path: West Village Dorms (West Campus)  -> John Lewis Student Center -> North Avenue Dorms (East Campus)     -> MARTA Midtown Station -> McCamish & 10th St.
+- L_Graduate Living Center_0 | stops=5 | cycle=9.8 min | path: MARTA Midtown Station -> North Avenue Dorms (East Campus)     -> John Lewis Student Center -> West Village Dorms (West Campus)  -> Graduate Living Center
+- L_Technology Square EB_0 | stops=5 | cycle=9.8 min | path: North Avenue Dorms (East Campus)     -> John Lewis Student Center -> West Village Dorms (West Campus)  -> MARTA Midtown Station -> Technology Square EB
+- L_Technology Square WB_0 | stops=5 | cycle=9.9 min | path: North Avenue Dorms (East Campus)     -> John Lewis Student Center -> West Village Dorms (West Campus)  -> MARTA Midtown Station -> Technology Square WB
+- L_Ferst Dr & Hemphill Ave_1 | stops=5 | cycle=9.9 min | path: West Village Dorms (West Campus)  -> John Lewis Student Center -> North Avenue Dorms (East Campus)     -> MARTA Midtown Station -> Ferst Dr & Hemphill Ave
+- L_Nanotechnology_0 | stops=5 | cycle=9.9 min | path: West Village Dorms (West Campus)  -> John Lewis Student Center -> North Avenue Dorms (East Campus)     -> MARTA Midtown Station -> Nanotechnology

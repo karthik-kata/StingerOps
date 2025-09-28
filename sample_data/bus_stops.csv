@@ -1,0 +1,16 @@
+name,latitude,longitude,description,capacity,has_shelter
+Klaus Building EB,33.777097,-84.395484,Serves Blue and Red routes,30,true
+Clough Commons,33.775274,-84.396138,Serves Blue Red and Green routes,45,true
+College of Business,33.77677,-84.387753,Serves Red and Green routes,25,false
+MARTA Midtown Station,33.78082162,-84.38640592,Serves Blue and Express routes,60,true
+Student Center,33.77342787,-84.39917304,Serves Blue and Green routes,35,true
+Library East,33.773991,-84.395713,Serves Red and Green routes,20,false
+Campanile,33.775017,-84.398056,Serves Blue route,15,false
+Tech Tower,33.775283,-84.398056,Serves Red and Express routes,40,true
+Culc Loading,33.775512,-84.393989,Serves Blue and Green routes,25,true
+CRC Recreation Center,33.775833,-84.404444,Serves Green and Express routes,30,true
+North Ave Dining,33.771667,-84.392222,Serves Blue and Red routes,20,false
+Graduate Living Center,33.785556,-84.408333,Serves Express route,35,true
+Bobby Dodd Stadium,33.772222,-84.392778,Serves Red and Game Day routes,50,false
+Technology Square,33.777778,-84.388889,Serves Blue and Tech Trolley routes,40,true
+Home Park,33.783333,-84.405556,Serves Green and Shuttle routes,15,false

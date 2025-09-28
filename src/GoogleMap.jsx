@@ -2,10 +2,11 @@ import { useEffect, useRef, useState, useCallback } from 'react'
 import { Loader } from '@googlemaps/js-api-loader'
 import api from './api'
 
-const GoogleMap = ({ csvData, classesData, stopsData, busCount, apiKey }) => {
+const GoogleMap = ({ csvData, classesData, stopsData, buildingsData, sourcesData, optimizedRoutes, busCount, apiKey }) => {
   const mapRef = useRef(null)
   const [map, setMap] = useState(null)
   const [markers, setMarkers] = useState([])
+  const [routePolylines, setRoutePolylines] = useState([])
   const [isLoaded, setIsLoaded] = useState(false)
   const [error, setError] = useState(null)
   const [userLocation, setUserLocation] = useState(null)
@@ -15,6 +16,7 @@ const GoogleMap = ({ csvData, classesData, stopsData, busCount, apiKey }) => {
   const [gtBusStops, setGtBusStops] = useState([])
   const [gtBusMarkers, setGtBusMarkers] = useState([])
   const [openInfoWindow, setOpenInfoWindow] = useState(null)
+  const [showOptimizedRoutes, setShowOptimizedRoutes] = useState(true)
 
   // Get user's current location
   const getUserLocation = () => {
@@ -181,6 +183,7 @@ const GoogleMap = ({ csvData, classesData, stopsData, busCount, apiKey }) => {
 
             loader.load().then(() => {
               if (mapRef.current) {
+                console.log('Google Maps API loaded successfully')
                 // Use user location if available, otherwise default to Georgia Tech
                 const center = userLocation || { lat: 33.7756, lng: -84.3963 }
                 
@@ -229,7 +232,19 @@ const GoogleMap = ({ csvData, classesData, stopsData, busCount, apiKey }) => {
         setError(null)
       }
     }).catch((err) => {
-      setError(`Failed to load Google Maps: ${err.message}`)
+      console.error('Google Maps API error:', err)
+      let errorMessage = `Failed to load Google Maps: ${err.message}`
+      
+      // Provide more specific error messages
+      if (err.message.includes('InvalidKeyMapError')) {
+        errorMessage = 'Invalid Google Maps API key. Please check your API key in the .env file.'
+      } else if (err.message.includes('RefererNotAllowedMapError')) {
+        errorMessage = 'This domain is not authorized to use this API key. Please update your API key restrictions.'
+      } else if (err.message.includes('ApiNotActivatedMapError')) {
+        errorMessage = 'Google Maps JavaScript API is not enabled. Please enable it in Google Cloud Console.'
+      }
+      
+      setError(errorMessage)
     })
   }, [apiKey, userLocation])
 
@@ -431,6 +446,92 @@ const GoogleMap = ({ csvData, classesData, stopsData, busCount, apiKey }) => {
     setGtBusMarkers(newMarkers)
   }
 
+  // Create optimized route polylines
+  const createRoutePolylines = () => {
+    console.log('Creating route polylines. Map:', !!map, 'OptimizedRoutes:', optimizedRoutes)
+    if (!map || !optimizedRoutes || optimizedRoutes.length === 0) {
+      console.log('No map or routes available for polyline creation')
+      return
+    }
+    
+    // Clear existing route polylines
+    routePolylines.forEach(polyline => polyline.setMap(null))
+    
+    const newPolylines = []
+    const colors = [
+      '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7',
+      '#DDA0DD', '#98D8C8', '#F7DC6F', '#BB8FCE', '#85C1E9'
+    ]
+    
+    optimizedRoutes.forEach((route, routeIndex) => {
+      if (route.stops && route.stops.length > 1) {
+        const path = route.stops.map(stop => ({
+          lat: stop.latitude,
+          lng: stop.longitude
+        }))
+        
+        // Close the route by connecting back to the first stop
+        path.push(path[0])
+        
+        const polyline = new window.google.maps.Polyline({
+          path: path,
+          geodesic: true,
+          strokeColor: colors[routeIndex % colors.length],
+          strokeOpacity: 0.8,
+          strokeWeight: 4,
+          map: showOptimizedRoutes ? map : null
+        })
+        
+        // Add click listener to show route info
+        polyline.addListener('click', (event) => {
+          const infoWindow = new window.google.maps.InfoWindow({
+            position: event.latLng,
+            content: `
+              <div style="padding: 12px; max-width: 300px;">
+                <h4 style="margin: 0 0 10px 0; color: ${colors[routeIndex % colors.length]};">
+                  Route ${route.route_number}: ${route.route_id}
+                </h4>
+                <div style="font-size: 12px; color: #666;">
+                  <p><strong>Stops:</strong> ${route.stops_count}</p>
+                  <p><strong>Cycle Time:</strong> ${route.cycle_minutes.toFixed(1)} minutes</p>
+                  <p><strong>Efficiency:</strong> ${route.efficiency.toFixed(2)}</p>
+                  <p><strong>Demand Coverage:</strong> ${route.demand_coverage}</p>
+                </div>
+              </div>
+            `
+          })
+          
+          // Close any open info window
+          if (openInfoWindow) {
+            openInfoWindow.close()
+          }
+          
+          infoWindow.open(map)
+          setOpenInfoWindow(infoWindow)
+        })
+        
+        newPolylines.push(polyline)
+      }
+    })
+    
+    setRoutePolylines(newPolylines)
+  }
+  
+  // Toggle optimized routes visibility
+  const toggleOptimizedRoutes = () => {
+    const newShowState = !showOptimizedRoutes
+    setShowOptimizedRoutes(newShowState)
+    
+    routePolylines.forEach(polyline => {
+      polyline.setMap(newShowState ? map : null)
+    })
+  }
+  
+  // Create optimized route polylines when map and routes are ready
+  useEffect(() => {
+    createRoutePolylines()
+  }, [map, optimizedRoutes, showOptimizedRoutes])
+  
   // Create GT bus stop markers when map and stops are ready
   useEffect(() => {
     createGtBusStopMarkers()
@@ -457,6 +558,15 @@ const GoogleMap = ({ csvData, classesData, stopsData, busCount, apiKey }) => {
                   >
                     {showTransit ? '🚌 Hide Routes' : '🚌 Show Routes'}
                   </button>
+                  {optimizedRoutes && optimizedRoutes.length > 0 && (
+                    <button 
+                      onClick={toggleOptimizedRoutes}
+                      className={`optimized-routes-toggle-button ${showOptimizedRoutes ? 'active' : ''}`}
+                      title={showOptimizedRoutes ? 'Hide optimized routes' : 'Show optimized routes'}
+                    >
+                      {showOptimizedRoutes ? '⭐ Hide Optimized' : '⭐ Show Optimized'}
+                    </button>
+                  )}
                   <div className="map-stats">
                     {csvData && (
                       <span>📍 {markers.length} location{markers.length !== 1 ? 's' : ''} found</span>
@@ -467,8 +577,17 @@ const GoogleMap = ({ csvData, classesData, stopsData, busCount, apiKey }) => {
                     {stopsData && (
                       <span>🚏 {stopsData.length} stops</span>
                     )}
+                    {buildingsData && (
+                      <span>🏢 {buildingsData.length} buildings</span>
+                    )}
+                    {sourcesData && (
+                      <span>🏠 {sourcesData.length} sources</span>
+                    )}
                     {gtBusStops.length > 0 && (
                       <span>🚌 {gtBusStops.length} GT bus stop{gtBusStops.length !== 1 ? 's' : ''}</span>
+                    )}
+                    {optimizedRoutes && optimizedRoutes.length > 0 && (
+                      <span>⭐ {optimizedRoutes.length} optimized route{optimizedRoutes.length !== 1 ? 's' : ''}</span>
                     )}
                     <span>🚌 {busCount} bus{busCount !== 1 ? 'es' : ''} available</span>
                   </div>
@@ -492,6 +611,31 @@ const GoogleMap = ({ csvData, classesData, stopsData, busCount, apiKey }) => {
       {locationError && (
         <div className="location-warning">
           <p>⚠️ {locationError} - Using default location</p>
+        </div>
+      )}
+      {error && (
+        <div className="map-error">
+          <div className="error-content">
+            <h3>🗺️ Map Service Unavailable</h3>
+            <p>{error}</p>
+            <div className="fallback-info">
+              <p><strong>You can still use the application!</strong></p>
+              <p>• Upload CSV files using the "📁 Upload Data" button</p>
+              <p>• Run route optimization using the "🚌 Optimize Routes" button</p>
+              <p>• The map will be available once the API key issue is resolved</p>
+            </div>
+            {error.includes('API key') && (
+              <div className="api-key-help">
+                <p>To enable Google Maps:</p>
+                <ol>
+                  <li>Get a Google Maps API key from Google Cloud Console</li>
+                  <li>Create a <code>.env</code> file in the project root</li>
+                  <li>Add: <code>VITE_GOOGLE_MAPS_API_KEY=your_api_key_here</code></li>
+                  <li>Restart the development server</li>
+                </ol>
+              </div>
+            )}
+          </div>
         </div>
       )}
     </div>
