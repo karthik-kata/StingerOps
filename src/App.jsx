@@ -17,6 +17,7 @@ function App() {
   const [apiKey] = useState(import.meta.env.VITE_GOOGLE_MAPS_API_KEY)
   const [showUploadModal, setShowUploadModal] = useState(false)
   const [showOptimizationModal, setShowOptimizationModal] = useState(false)
+  const [showAboutModal, setShowAboutModal] = useState(false)
   const [busCount, setBusCount] = useState(5)
   const [uploadType, setUploadType] = useState('general') // 'general', 'classes', 'stops'
   const [optimizedRoutes, setOptimizedRoutes] = useState(null)
@@ -258,6 +259,15 @@ function App() {
           🧪 Test Routes
         </button>
       </div>
+
+      {/* About Button */}
+      <button 
+        className="about-button"
+        onClick={() => setShowAboutModal(true)}
+        title="Learn how to use this website"
+      >
+        ℹ️ About
+      </button>
 
 
               {/* Data Status Indicator */}
@@ -564,11 +574,86 @@ function App() {
                             )}
                           </div>
                         </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
               )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* About Modal */}
+      {showAboutModal && (
+        <div className="about-modal">
+          <div className="about-modal-content">
+            <div className="modal-header">
+              <h2>🚌 Georgia Tech Bus System</h2>
+              <button 
+                className="close-button"
+                onClick={() => setShowAboutModal(false)}
+              >
+                ×
+              </button>
+            </div>
+            
+            <div className="about-content">
+              <div className="about-section">
+                <h3>📍 How to Use This Website</h3>
+                <p>This interactive map helps you explore Georgia Tech's bus system and upload your own location data.</p>
+              </div>
+
+              <div className="about-section">
+                <h3>🗺️ Map Features</h3>
+                <ul>
+                  <li><strong>Georgia Tech Campus View:</strong> The map is centered on Georgia Tech with bus stops already displayed</li>
+                  <li><strong>Bus Stop Information:</strong> Click on any red bus stop marker to see route information</li>
+                  <li><strong>Interactive Markers:</strong> Click markers to open detailed information windows</li>
+                  <li><strong>Close Windows:</strong> Click the red X button to close information windows</li>
+                </ul>
+              </div>
+
+              <div className="about-section">
+                <h3>📁 Upload Your Data</h3>
+                <ul>
+                  <li><strong>General Data:</strong> Upload any CSV with latitude/longitude coordinates</li>
+                  <li><strong>Classes Data:</strong> Upload class schedules with locations and times</li>
+                  <li><strong>Stops Data:</strong> Upload bus stop data with route information</li>
+                  <li><strong>Bus Configuration:</strong> Adjust the number of buses (1-20)</li>
+                </ul>
+              </div>
+
+              <div className="about-section">
+                <h3>📊 Data Requirements</h3>
+                <ul>
+                  <li><strong>CSV Format:</strong> Files must be in CSV format (.csv)</li>
+                  <li><strong>Coordinates:</strong> Include 'latitude' and 'longitude' columns</li>
+                  <li><strong>Bus Stops:</strong> Include 'stop_name' and 'routes_serving' columns</li>
+                  <li><strong>Classes:</strong> Include location and time information</li>
+                </ul>
+              </div>
+
+              <div className="about-section">
+                <h3>🎯 Getting Started</h3>
+                <ol>
+                  <li>Explore the map to see existing Georgia Tech bus stops</li>
+                  <li>Click "📁 Upload CSV" to add your own data</li>
+                  <li>Choose the appropriate data type (General/Classes/Stops)</li>
+                  <li>Upload your CSV file and see it displayed on the map</li>
+                  <li>Adjust bus count settings as needed</li>
+                </ol>
+              </div>
+
+              <div className="about-section">
+                <h3>💡 Tips</h3>
+                <ul>
+                  <li>Use the zoom controls to explore different areas</li>
+                  <li>Click and drag to pan around the map</li>
+                  <li>Information windows show detailed data for each marker</li>
+                  <li>You can upload multiple types of data simultaneously</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
               {/* Optimization Modal */}
               {showOptimizationModal && (
