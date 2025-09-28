@@ -10,42 +10,6 @@ html, body {
   padding: 0;
   overflow: hidden;
 }
-
-/* Cedar Guide Styles */
-.cedar-guide {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 500px;
-  height: 600px;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  z-index: 10000;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  animation: cedarSlideIn 0.3s ease-out;
-}
-
-.cedar-guide.minimized {
-  height: 60px;
-  max-height: 60px;
-}
-
-@keyframes cedarSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
 .chat-header {
   background: linear-gradient(135deg, #667eea, #764ba2);
   color: white;
@@ -235,8 +199,6 @@ html, body {
   cursor: not-allowed;
 }
 
-/* Cedar OS Integration */
-.cedar-copilot-container {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -245,12 +207,10 @@ html, body {
   height: 100%;
 }
 
-.cedar-copilot-container > * {
   height: 100% !important;
   width: 100% !important;
 }
 
-.cedar-status {
   background: rgba(76, 175, 80, 0.2);
   color: #4CAF50;
   padding: 2px 6px;
@@ -260,7 +220,6 @@ html, body {
   margin-left: 8px;
 }
 
-.cedar-loading {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -413,8 +372,6 @@ html, body {
   }
 }
 
-/* Cedar OS Loading and Error States */
-.cedar-loading {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -424,7 +381,6 @@ html, body {
   text-align: center;
 }
 
-.cedar-loading .loading-spinner {
   width: 40px;
   height: 40px;
   border: 4px solid #f3f3f3;
@@ -434,13 +390,11 @@ html, body {
   margin-bottom: 16px;
 }
 
-.cedar-loading p {
   margin: 8px 0;
   color: #666;
   font-size: 14px;
 }
 
-.cedar-error {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -451,7 +405,6 @@ html, body {
   color: #dc3545;
 }
 
-.cedar-error p {
   margin: 8px 0;
   font-size: 14px;
 }
@@ -461,9 +414,7 @@ html, body {
   100% { transform: rotate(360deg); }
 }
 
-/* Responsive Cedar guide */
 @media (max-width: 480px) {
-  .cedar-guide {
     bottom: 10px;
     right: 10px;
     left: 10px;
@@ -530,8 +481,6 @@ html, body {
   box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
 }
 
-/* Cedar Guide Button */
-.seeder-button {
   position: fixed;
   top: 80px;
   right: 220px;
@@ -552,7 +501,6 @@ html, body {
   min-width: 120px;
 }
 
-.seeder-button:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
 }
@@ -1326,7 +1274,6 @@ html, body {
     padding: 1.5rem;
   }
   
-  .seeder-button {
     top: 20px;
     right: 180px;
     padding: 10px 16px;
@@ -1334,9 +1281,7 @@ html, body {
   }
 }
 
-/* Seeder Tour Responsive Fixes */
 @media (max-width: 480px) {
-  .seeder-button {
     top: 20px;
     right: 10px;
     padding: 8px 12px;
@@ -1484,23 +1429,18 @@ html, body {
   font-size: 14px;
 }
 
-/* Cedar-OS Components */
-.cedar-copilot {
   height: 100%;
   width: 100%;
   border: none;
   border-radius: 0;
 }
 
-.cedar-copilot-container {
   height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
 }
 
-/* Cedar Loading State */
-.cedar-loading {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1510,8 +1450,6 @@ html, body {
   color: #666;
 }
 
-/* Cedar Error State */
-.cedar-error {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1522,7 +1460,6 @@ html, body {
   text-align: center;
 }
 
-.cedar-error p {
   margin: 8px 0;
 }
 
@@ -1541,17 +1478,10 @@ html, body {
   100% { transform: rotate(360deg); }
 }
 
-/* Cedar-OS Custom Styling */
-.cedar-copilot-container .cedar-copilot {
   background: white;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Override Cedar-OS default styles if needed */
-.cedar-copilot-container * {
   box-sizing: border-box;
 }
-
-
-

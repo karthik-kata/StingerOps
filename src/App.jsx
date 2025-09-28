@@ -3,8 +3,6 @@
 import { useState, useCallback, useEffect } from 'react'
 import Papa from 'papaparse'
 import GoogleMap from './GoogleMap'
-import CedarGuide from './CedarGuide'
-import CedarTest from './CedarTest'
 import api from './api'
 import './App.css'
 
@@ -17,7 +15,6 @@ function App() {
   const [isProcessing, setIsProcessing] = useState(false)
   const [apiKey] = useState(import.meta.env.VITE_GOOGLE_MAPS_API_KEY)
   const [showUploadModal, setShowUploadModal] = useState(false)
-  const [showSeeder, setShowSeeder] = useState(false)
   const [busCount, setBusCount] = useState(5)
   const [uploadType, setUploadType] = useState('general') // 'general', 'classes', 'stops'
 
@@ -170,17 +167,6 @@ function App() {
         📁 Upload CSV
       </button>
 
-      {/* Cedar OS AI Guide Button */}
-      <button 
-        className="seeder-button"
-        onClick={() => {
-          console.log('🤖 AI Guide button clicked, setting showSeeder to true')
-          setShowSeeder(true)
-        }}
-        title="Get AI-powered guidance"
-      >
-        🤖 AI Guide
-      </button>
 
               {/* Data Status Indicator */}
               {(csvData || classesData || stopsData) && (
@@ -402,19 +388,6 @@ function App() {
               )}
 
 
-              {/* Cedar Guide Component */}
-              {console.log('🌲 App render - showSeeder:', showSeeder)}
-              <CedarGuide 
-                isOpen={showSeeder} 
-                onClose={() => {
-                  console.log('🌲 CedarGuide onClose called, setting showSeeder to false')
-                  setShowSeeder(false)
-                }}
-                busCount={busCount}
-                csvData={csvData}
-                classesData={classesData}
-                stopsData={stopsData}
-              />
       </div>
   )
 }
