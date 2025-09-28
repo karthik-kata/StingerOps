@@ -203,10 +203,65 @@ const GoogleMap = ({ csvData, classesData, stopsData, busCount, apiKey }) => {
                   streetViewControl: true,
                   fullscreenControl: true,
                   styles: [
+                    // Improve POI text readability
+                    {
+                      featureType: 'poi',
+                      elementType: 'labels.text.fill',
+                      stylers: [{ color: '#000000' }]
+                    },
+                    {
+                      featureType: 'poi',
+                      elementType: 'labels.text.stroke',
+                      stylers: [{ color: '#ffffff' }, { weight: 2 }]
+                    },
+                    {
+                      featureType: 'poi',
+                      elementType: 'labels.icon',
+                      stylers: [{ visibility: 'on' }]
+                    },
+                    // Improve general text readability
                     {
                       featureType: 'all',
                       elementType: 'labels.text.fill',
-                      stylers: [{ color: '#ffffff' }]
+                      stylers: [{ color: '#000000' }]
+                    },
+                    {
+                      featureType: 'all',
+                      elementType: 'labels.text.stroke',
+                      stylers: [{ color: '#ffffff' }, { weight: 1 }]
+                    },
+                    // Improve road labels
+                    {
+                      featureType: 'road',
+                      elementType: 'labels.text.fill',
+                      stylers: [{ color: '#000000' }]
+                    },
+                    {
+                      featureType: 'road',
+                      elementType: 'labels.text.stroke',
+                      stylers: [{ color: '#ffffff' }, { weight: 1.5 }]
+                    },
+                    // Improve administrative area labels
+                    {
+                      featureType: 'administrative',
+                      elementType: 'labels.text.fill',
+                      stylers: [{ color: '#000000' }]
+                    },
+                    {
+                      featureType: 'administrative',
+                      elementType: 'labels.text.stroke',
+                      stylers: [{ color: '#ffffff' }, { weight: 1.5 }]
+                    },
+                    // Improve transit labels
+                    {
+                      featureType: 'transit',
+                      elementType: 'labels.text.fill',
+                      stylers: [{ color: '#000000' }]
+                    },
+                    {
+                      featureType: 'transit',
+                      elementType: 'labels.text.stroke',
+                      stylers: [{ color: '#ffffff' }, { weight: 1.5 }]
                     }
                   ]
                 })

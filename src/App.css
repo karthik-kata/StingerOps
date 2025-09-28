@@ -481,6 +481,32 @@ html, body {
   box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
 }
 
+/* About Button */
+.about-button {
+  position: fixed;
+  top: 80px;
+  right: 280px;
+  background: linear-gradient(135deg, #2E86AB, #1e6b8a);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(46, 134, 171, 0.3);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.about-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(46, 134, 171, 0.4);
+}
+
   position: fixed;
   top: 80px;
   right: 220px;
@@ -1256,6 +1282,69 @@ html, body {
   padding: 2rem;
 }
 
+/* About Modal */
+.about-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 2rem;
+}
+
+.about-modal-content {
+  background: white;
+  border-radius: 20px;
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+.about-content {
+  padding: 2rem;
+}
+
+.about-section {
+  margin-bottom: 2rem;
+}
+
+.about-section h3 {
+  color: #2E86AB;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 0.5rem;
+}
+
+.about-section p {
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.about-section ul, .about-section ol {
+  color: #555;
+  line-height: 1.6;
+  margin-left: 1.5rem;
+}
+
+.about-section li {
+  margin-bottom: 0.5rem;
+}
+
+.about-section strong {
+  color: #2E86AB;
+  font-weight: 600;
+}
+
 /* Responsive Modal */
 @media (max-width: 768px) {
   .upload-modal {
@@ -1271,6 +1360,18 @@ html, body {
   }
   
   .modal-body {
+    padding: 1.5rem;
+  }
+  
+  .about-modal {
+    padding: 1rem;
+  }
+  
+  .about-modal-content {
+    max-height: 95vh;
+  }
+  
+  .about-content {
     padding: 1.5rem;
   }
   
@@ -1291,6 +1392,13 @@ html, body {
   .floating-upload-button {
     top: 70px;
     right: 10px;
+  }
+  
+  .about-button {
+    top: 70px;
+    right: 180px;
+    padding: 8px 12px;
+    font-size: 0.7rem;
   }
 }
 
